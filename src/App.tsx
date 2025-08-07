@@ -1,10 +1,15 @@
+import TaskProvider from "./store/task-reducer";
+import Tasks from "./components/tasks/tasks";
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <div></div>
-    </>
+    <TaskProvider>
+      <h1>Task Management App</h1>
+      <div>
+        <Tasks />
+      </div>
+    </TaskProvider>
   );
 }
 
