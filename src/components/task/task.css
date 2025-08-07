@@ -1,0 +1,12 @@
+p {
+  margin: 0;
+}
+
+.task-description {
+  display: flex;
+  padding: 0 0 1rem 0;
+}
+
+.completed-icon {
+  margin-left: 0.5rem;
+}
