@@ -15,15 +15,17 @@ const Input: React.FC<InputProps> = ({
   isRequired,
   type = "text",
 }) => {
+  const inputId = label.replace(/\s+/g, "-").toLowerCase();
   return (
     <div>
-      <label>{label}: </label>
+      <label htmlFor={inputId}>{label}: </label>
       <input
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         required={isRequired}
+        id={inputId}
       />
     </div>
   );

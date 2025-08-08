@@ -5,7 +5,11 @@ const Button: React.FC<{ text: string; onClick: () => void }> = ({
   onClick,
 }) => {
   return (
-    <button type="button" onClick={onClick}>
+    <button
+      data-testid={`${text.toLowerCase()}-button`}
+      type="button"
+      onClick={onClick}
+    >
       {text}
     </button>
   );
