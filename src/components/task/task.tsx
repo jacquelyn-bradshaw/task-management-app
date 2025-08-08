@@ -1,4 +1,6 @@
-import React from "react";
+import React, { use } from "react";
+import Button from "../button/button";
+import { TaskContext } from "../../store/task-context";
 import "./task.css";
 
 interface TaskProps {
@@ -12,6 +14,12 @@ interface TaskProps {
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
+  const context = use(TaskContext);
+
+  if (!context) return null;
+
+  const { deleteTask } = context;
+
   return (
     <li>
       <h3>{task.title}</h3>
@@ -28,6 +36,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           <p>Due: {new Date(task.dueDate).toLocaleDateString()}</p>
         )}
       </div>
+      <Button text="Delete" onClick={() => deleteTask(task.id)} />
     </li>
   );
 };

@@ -9,6 +9,7 @@ type State = {
 
 export type TaskContextType = State & {
   addTask: (taskData: Omit<Task, "id">) => Promise<void>;
+  deleteTask: (taskId: string) => Promise<void>;
 };
 
 export const TaskContext = React.createContext<TaskContextType | undefined>(
