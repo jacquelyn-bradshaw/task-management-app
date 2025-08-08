@@ -12,7 +12,8 @@ type State = {
 type Action =
   | { type: "FETCH_START" }
   | { type: "FETCH_SUCCESS"; payload: Task[] }
-  | { type: "FETCH_ERROR"; payload: string };
+  | { type: "FETCH_ERROR"; payload: string }
+  | { type: "ADD_TASK"; payload: Task };
 
 const initialState: State = {
   tasks: [],
@@ -28,6 +29,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, loading: false, tasks: action.payload };
     case "FETCH_ERROR":
       return { ...state, loading: false, error: action.payload };
+    case "ADD_TASK":
+      return { ...state, tasks: [...state.tasks, action.payload] };
     default:
       return state;
   }
@@ -55,7 +58,18 @@ export default function TaskProvider({
     })();
   }, []);
 
-  const contextValue = React.useMemo(() => ({ ...state }), [state]);
+  const addTask = async (taskData: Omit<Task, "id">) => {
+    try {
+      const newTask = await api.createTask(taskData);
+      dispatch({ type: "ADD_TASK", payload: newTask });
+    } catch (e: unknown) {
+      const message =
+        e instanceof Error ? e.message : "An unknown error occurred";
+      dispatch({ type: "FETCH_ERROR", payload: message });
+    }
+  };
+
+  const contextValue = React.useMemo(() => ({ ...state, addTask }), [state]);
 
   return <TaskContext value={contextValue}>{children}</TaskContext>;
 }

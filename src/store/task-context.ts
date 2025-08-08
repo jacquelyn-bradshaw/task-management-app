@@ -7,7 +7,9 @@ type State = {
   error: string | null;
 };
 
-export type TaskContextType = State;
+export type TaskContextType = State & {
+  addTask: (taskData: Omit<Task, "id">) => Promise<void>;
+};
 
 export const TaskContext = React.createContext<TaskContextType | undefined>(
   undefined
