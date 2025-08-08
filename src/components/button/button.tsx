@@ -1,3 +1,5 @@
+import "./button.css";
+
 const Button: React.FC<{ text: string; onClick: () => void }> = ({
   text,
   onClick,
