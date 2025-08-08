@@ -6,6 +6,8 @@ I would have liked to create a modal for the editing of tasks but it was not ach
 
 I would like to work further on this project outside of the task time restrictions and complete the edit functionality, add a Playwright E2E test for the add task journey, tidy up my shared types and improve styling.
 
+I used GitHub Copilot Chat to support with Jest setup errors.
+
 ## npm install
 
 Installs dependencies which enable this app to run
