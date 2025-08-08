@@ -3,15 +3,42 @@ import { useNavigate } from "react-router-dom";
 import Button from "../button/button";
 import Input from "../input/input";
 import { TaskContext } from "../../store/task-context";
+import "./add-task.css";
 
 const AddTask: React.FC = () => {
   const { addTask } = use(TaskContext) || {};
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState<Date | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const validateInput = () => {
+    if (!title.trim()) {
+      setError("Title is required.");
+      return false;
+    }
+    if (title.length > 100) {
+      setError("Title must be less than 100 characters.");
+      return false;
+    }
+    if (description.length > 500) {
+      setError("Description must be less than 500 characters.");
+      return false;
+    }
+    if (dueDate && isNaN(dueDate.getTime())) {
+      setError("Due date is invalid.");
+      return false;
+    }
+    setError(null);
+    return true;
+  };
+
   const handleAdd = () => {
+    if (!validateInput()) {
+      return;
+    }
+
     if (addTask && title) {
       addTask({
         title,
@@ -29,6 +56,7 @@ const AddTask: React.FC = () => {
   return (
     <form>
       <h2>Add Task</h2>
+      {error && <div className="error">{error}</div>}
       <Input
         label="Title"
         placeholder="Enter task title"
