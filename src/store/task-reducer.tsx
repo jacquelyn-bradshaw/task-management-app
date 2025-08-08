@@ -57,8 +57,7 @@ export default function TaskProvider({
         const tasks = await api.getTasks();
         dispatch({ type: "FETCH_SUCCESS", payload: tasks });
       } catch (e: unknown) {
-        const message =
-          e instanceof Error ? e.message : "An unknown error occurred";
+        const message = e instanceof Error ? e.message : "Failed to load tasks";
         dispatch({ type: "FETCH_ERROR", payload: message });
       }
     })();
@@ -69,8 +68,7 @@ export default function TaskProvider({
       const newTask = await api.createTask(taskData);
       dispatch({ type: "ADD_TASK", payload: newTask });
     } catch (e: unknown) {
-      const message =
-        e instanceof Error ? e.message : "An unknown error occurred";
+      const message = e instanceof Error ? e.message : "Failed to add task";
       dispatch({ type: "FETCH_ERROR", payload: message });
     }
   };
@@ -80,8 +78,7 @@ export default function TaskProvider({
       await api.deleteTask(id);
       dispatch({ type: "DELETE_TASK", payload: id });
     } catch (e: unknown) {
-      const message =
-        e instanceof Error ? e.message : "An unknown error occurred";
+      const message = e instanceof Error ? e.message : "Failed to delete task";
       dispatch({ type: "FETCH_ERROR", payload: message });
     }
   };
